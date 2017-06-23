@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
-            winner = 1;
+            winner = 2;
         }
         if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
             winner = 2;
