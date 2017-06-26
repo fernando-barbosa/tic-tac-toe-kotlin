@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun btnClick(view : View) {
+    fun btnClick(view: View) {
         val btnSelected = view as Button
         var cellId = 0
 
@@ -37,12 +39,13 @@ class MainActivity : AppCompatActivity() {
         playGame(cellId, btnSelected)
     }
 
-    fun playGame(cellId : Int, btnSelected : Button) {
+    fun playGame(cellId: Int, btnSelected : Button) {
         if (activePlayer == 1) {
             btnSelected.text = "X"
             btnSelected.setBackgroundColor(Color.GREEN)
             player1.add(cellId)
             activePlayer = 2
+            autoPlay()
         } else {
             btnSelected.text = "O"
             btnSelected.setBackgroundColor(Color.RED)
@@ -79,5 +82,35 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,  "Player 2 win the game!", Toast.LENGTH_LONG).show()
             }
         }
+    }
+
+    fun autoPlay() {
+        var emptyCells = ArrayList<Int>()
+        for (cellId in 1..9) {
+            if (!(player1.contains(cellId) || player2.contains(cellId))) emptyCells.add(cellId)
+        }
+
+        val r = Random()
+        val randomIndex = r.nextInt(emptyCells.size - 0) + 0
+        val cellId = emptyCells[randomIndex]
+
+        var btnSelect: Button?
+
+        when (cellId) {
+            1 -> btnSelect = btn1
+            2 -> btnSelect = btn2
+            3 -> btnSelect = btn3
+            4 -> btnSelect = btn4
+            5 -> btnSelect = btn5
+            6 -> btnSelect = btn6
+            7 -> btnSelect = btn7
+            8 -> btnSelect = btn8
+            9 -> btnSelect = btn9
+            else -> {
+                btnSelect = btn1
+            }
+        }
+
+        playGame(cellId, btnSelect)
     }
 }
